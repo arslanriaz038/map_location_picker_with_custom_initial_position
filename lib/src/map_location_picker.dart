@@ -12,8 +12,6 @@ import 'logger.dart';
 import 'provider.dart';
 
 class MapLocationPicker extends StatefulWidget {
-
-  final LatLng latLng;
   /// Padding around the map
   final EdgeInsets padding;
 
@@ -153,7 +151,6 @@ class MapLocationPicker extends StatefulWidget {
     Key? key,
     this.desiredAccuracy = LocationAccuracy.high,
     required this.apiKey,
-    required this.latLng,
     this.geoCodingBaseUrl,
     this.geoCodingHttpClient,
     this.geoCodingApiHeaders,
@@ -213,7 +210,7 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
   final TextEditingController _searchController = TextEditingController();
 
   /// initial latitude & longitude
-  LatLng _initialPosition =  latLng;
+  LatLng _initialPosition = const LatLng(28.8993468, 76.6250249);
 
   /// initial address text
   String _address = "Tap on map to get address";
