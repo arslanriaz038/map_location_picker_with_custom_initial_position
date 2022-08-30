@@ -2,12 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import 'package:provider/provider.dart';
-import "package:google_maps_webservice/geocoding.dart";
-import 'package:google_maps_webservice/places.dart';
 import 'logger.dart';
 import 'provider.dart';
 
@@ -147,10 +144,13 @@ class MapLocationPicker extends StatefulWidget {
 
   /// Hide Suggestions on keyboard hide
   final bool hideSuggestionsOnKeyboardHide;
+  final LatLng latLng;
+
   const MapLocationPicker({
     Key? key,
     this.desiredAccuracy = LocationAccuracy.high,
     required this.apiKey,
+    required this.latLng,
     this.geoCodingBaseUrl,
     this.geoCodingHttpClient,
     this.geoCodingApiHeaders,
@@ -210,7 +210,10 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
   final TextEditingController _searchController = TextEditingController();
 
   /// initial latitude & longitude
-  LatLng _initialPosition = const LatLng(28.8993468, 76.6250249);
+  late LatLng _initialPosition;
+
+  // LatLng _initialPosition =  latLng;
+  // LatLng _initialPosition = LatLng(latitude, longitude);
 
   /// initial address text
   String _address = "Tap on map to get address";
@@ -331,6 +334,12 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
     } catch (e) {
       logger.e(e);
     }
+  }
+
+  @override
+  void initState() {
+    _initialPosition = widget.latLng;
+    super.initState();
   }
 
   @override

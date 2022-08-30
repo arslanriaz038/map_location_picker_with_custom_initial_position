@@ -20,6 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String address = "null";
   String autocompletePlace = "null";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
                     builder: (context) {
                       return MapLocationPicker(
                         apiKey: "API_KEY_HERE",
+                        latLng: const LatLng(31.529876, 74.356535),
                         canPopOnNextButtonTaped: true,
                         onNext: (GeocodingResult? result) {
                           if (result != null) {
