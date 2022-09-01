@@ -546,7 +546,7 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ListTile(
-                        title: Text(_address),
+                        title: Text(_address,style: const TextStyle(color: Colors.white),),
                         trailing: IconButton(
                           tooltip: widget.bottomCardTooltip,
                           icon: widget.bottomCardIcon,
