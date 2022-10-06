@@ -421,9 +421,10 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                                 hintText: widget.searchHintText,
                                 hintStyle:
                                     Theme.of(context).textTheme.bodyText1,
-                                
                                 border: InputBorder.none,
                                 filled: true,
+                                labelStyle:
+                                    Theme.of(context).textTheme.bodyText1,
                                 suffixIcon: IconButton(
                                   icon: const Icon(Icons.close),
                                   onPressed: () async {
@@ -463,6 +464,11 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                                     TextSelection.collapsed(
                                         offset: _searchController.text.length);
                                 _getDetailsByPlaceId(value.placeId ?? "");
+                                _decodeAddress(
+                                  Location(
+                                      lat: _initialPosition.latitude,
+                                      lng: _initialPosition.longitude),
+                                );
                                 setState(() {});
                               },
                               hideSuggestionsOnKeyboardHide:
@@ -553,7 +559,8 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                       ListTile(
                         title: Text(
                           _address,
-                          style: const TextStyle(color: Colors.white,fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
                         ),
                         trailing: IconButton(
                           tooltip: widget.bottomCardTooltip,
@@ -585,9 +592,6 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                                         _address =
                                             element.formattedAddress ?? "";
                                         _geocodingResult = element;
-
-                                        widget.onNext.call(_geocodingResult);
-
                                         setState(() {});
                                         Navigator.pop(context);
                                       },
