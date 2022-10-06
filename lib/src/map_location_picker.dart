@@ -329,6 +329,7 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
       controller
           .animateCamera(CameraUpdate.newCameraPosition(cameraPosition()));
       _address = response.result.formattedAddress ?? "";
+
       widget.onSuggestionSelected?.call(response);
       setState(() {});
     } catch (e) {
@@ -405,8 +406,9 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                     shape: widget.topCardShape,
                     color: widget.topCardColor,
                     child: ListTile(
-                      minVerticalPadding: 0,
-                      contentPadding: const EdgeInsets.only(right: 4, left: 4),
+                      minVerticalPadding: 5,
+                      contentPadding:
+                          const EdgeInsets.only(right: 4, left: 4, top: 4),
                       leading: widget.showBackButton
                           ? const BackButton()
                           : widget.backButton,
@@ -417,6 +419,9 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                             return FormBuilderTypeAhead<Prediction>(
                               decoration: InputDecoration(
                                 hintText: widget.searchHintText,
+                                hintStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                
                                 border: InputBorder.none,
                                 filled: true,
                                 suffixIcon: IconButton(
@@ -546,7 +551,10 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ListTile(
-                        title: Text(_address,style: const TextStyle(color: Colors.white),),
+                        title: Text(
+                          _address,
+                          style: const TextStyle(color: Colors.white,fontSize: 16),
+                        ),
                         trailing: IconButton(
                           tooltip: widget.bottomCardTooltip,
                           icon: widget.bottomCardIcon,
@@ -577,6 +585,9 @@ class _MapLocationPickerState extends State<MapLocationPicker> {
                                         _address =
                                             element.formattedAddress ?? "";
                                         _geocodingResult = element;
+
+                                        widget.onNext.call(_geocodingResult);
+
                                         setState(() {});
                                         Navigator.pop(context);
                                       },
